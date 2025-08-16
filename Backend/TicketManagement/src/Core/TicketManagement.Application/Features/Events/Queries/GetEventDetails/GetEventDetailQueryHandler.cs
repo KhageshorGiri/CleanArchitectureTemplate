@@ -3,7 +3,7 @@ using MediatR;
 using TicketManagement.Application.Contracts.Prestience;
 using TicketManagement.Domain.Entities;
 
-namespace TicketManagement.Application.Features.Events;
+namespace TicketManagement.Application.Features.Events.Queries.GetEventDetails;
 
 public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, EventDetailsViewModel>
 {
@@ -28,7 +28,7 @@ public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, E
 
         var category = await _categoryRepository.GetByIdAsync(@event.CategoryId);
         eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
-        
+
         return eventDetailDto;
     }
 }
