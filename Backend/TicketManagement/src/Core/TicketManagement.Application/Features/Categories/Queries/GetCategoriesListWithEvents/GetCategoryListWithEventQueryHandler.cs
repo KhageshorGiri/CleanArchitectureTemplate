@@ -18,7 +18,7 @@ public class GetCategoryListWithEventQueryHandler :
 
     public async Task<List<CategoryEventListViewModel>> Handle(GetCategoryListWithEventQuery request, CancellationToken cancellationToken)
     {
-        var list = await _categoryRepository.GetCategoriesWithEvents(request.IncludeHistory)
+        var list = await _categoryRepository.GetCategoriesWithEvents(request.IncludeHistory);
         return _mapper.Map<List<CategoryEventListViewModel>>(list);
     }
 }
