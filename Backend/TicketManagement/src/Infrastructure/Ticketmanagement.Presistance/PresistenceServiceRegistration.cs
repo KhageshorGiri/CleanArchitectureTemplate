@@ -11,7 +11,7 @@ public static class PresistenceServiceRegistration
     public static IServiceCollection AddPresistanceServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<TicketmanagemetnDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultSqlServerConnectionString")));
+            options.UseSqlite(configuration.GetConnectionString("DefaultSqlServerConnectionString")));
 
         services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
