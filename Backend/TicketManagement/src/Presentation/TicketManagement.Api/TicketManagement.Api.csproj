@@ -11,4 +11,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\TicketManagement.Application\TicketManagement.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Ticketmanagement.Presistance\Ticketmanagement.Presistance.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\TricketManagement.Infrastructure\TricketManagement.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
