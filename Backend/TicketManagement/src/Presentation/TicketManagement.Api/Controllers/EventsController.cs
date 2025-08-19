@@ -1,7 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TicketManagement.Application.Features.Events.Commands.CreateEvent;
+using TicketManagement.Application.Features.Events.Commands.DeleteEvent;
 using TicketManagement.Application.Features.Events.Commands.UpdateEvent;
+using TicketManagement.Application.Features.Events.Queries.GetEventDetails;
+using TicketManagement.Application.Features.Events.Queries.GetEventsList;
 
 namespace TicketManagement.Api.Controllers;
 
@@ -15,33 +18,38 @@ public class EventsController : ControllerBase
         _mediator = mediator;   
     }
 
-    [HttpGet( Name ="GetAllEvents")]
+    [HttpGet]
     public async Task<IActionResult> GetEvents()
     {
-        return Ok("hello");
+        var response = await _mediator.Send(new GetEventListedQuery());
+        return Ok(response);
     }
 
-    [HttpGet("/{eventId}", Name = "GetEvents")]
+    [HttpGet("/{eventId}")]
     public async Task<IActionResult> GetEvents(Guid eventId)
     {
-        return Ok("hello");
+        var response = await _mediator.Send(new GetEventDetailQuery { Id = eventId});
+        return Ok(response);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddNewEvent(CreateEventCommand newEvent)
     {
-        return Ok("hello");
+        var response = await _mediator.Send(newEvent);
+        return CreatedAtAction("GetEvents", response);
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateNewEvent(UpdateEventCommand existingEvent)
     {
-        return Ok("hello");
+        await _mediator.Send(existingEvent);
+        return NoContent();
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> DeleteEvent()
+    [HttpDelete("{eventId}")]
+    public async Task<IActionResult> DeleteEvent(Guid eventId)
     {
-        return Ok("hello");
+        await _mediator.Send(new DeleteEventCommand { EventId = eventId });
+        return NoContent();
     }
 }
