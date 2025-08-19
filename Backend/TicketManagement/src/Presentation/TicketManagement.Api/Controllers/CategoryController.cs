@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TicketManagement.Application.Features.Categories.Commands;
+using TicketManagement.Application.Features.Categories.Queries.GetCategoriesList;
+using TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
 
 namespace TicketManagement.Api.Controllers;
 
@@ -17,19 +19,22 @@ public class CategoryController : ControllerBase
     [HttpGet (Name = "GetAllCategories")]
     public async Task<IActionResult> GetAllCategories()
     {
-        return Ok("hello");
+        var allCategories = await _mediator.Send(new GetCategoriesListQuery());
+        return Ok(allCategories);
     }
 
     [HttpGet("events", Name = "GetAllCategoriesWithEvents")]
-    public async Task<IActionResult> GetAllCategoriesWithEvents()
+    public async Task<IActionResult> GetAllCategoriesWithEvents([FromQuery] bool includeHistory)
     {
-        return Ok("hello");
+        var response = await _mediator.Send(new GetCategoryListWithEventQuery { IncludeHistory = includeHistory });
+        return Ok(response);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddNewCategory(CreateCategoryCommand newCategory)
     {
-        return Ok("ok");
+        var response = await _mediator.Send(newCategory);
+        return CreatedAtAction("GetAllCategories", response);
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TicketManagement.Application.Features.Categories.Commands;
 using TicketManagement.Application.Features.Categories.Queries.GetCategoriesList;
 using TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
 using TicketManagement.Application.Features.Events.Commands.CreateEvent;
@@ -16,6 +17,7 @@ public class MappingProfile : Profile
         CreateMap<Event, EventListViewModel>().ReverseMap();
         CreateMap<Event, EventDetailsViewModel>().ReverseMap();
         CreateMap<Category, CategoryDto>().ReverseMap();
+        CreateMap<Category, CreateCategoryDto>().ReverseMap();
 
         CreateMap<Category, CategoryListViewModel>().ReverseMap();
         CreateMap<Category, CategoryEventListViewModel>().ReverseMap();
